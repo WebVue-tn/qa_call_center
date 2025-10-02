@@ -135,7 +135,7 @@ export function historyPlugin(schema: Schema, options: HistoryOptions = {}) {
   });
 
   // Pre-deleteOne hook for document deletion
-  schema.pre(["deleteOne", { document: true, query: false }], async function (next) {
+  schema.pre("deleteOne", { document: true, query: false }, async function (next: any) {
     const doc = this as any;
 
     const userId = doc._currentUserId;
