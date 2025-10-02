@@ -63,7 +63,7 @@ export const authConfig = {
         await connectDB();
 
         const user = await User.findOne({
-          email: credentials.email.toLowerCase(),
+          email: (credentials.email as string).toLowerCase(),
         }).populate("adminRoles agentRoles");
 
         if (!user) {
@@ -80,14 +80,14 @@ export const authConfig = {
         }
 
         return {
-          id: user._id.toString(),
+          id: (user._id as any).toString(),
           name: user.name,
           email: user.email,
           isTelephoniste: user.isTelephoniste,
           isAdmin: user.isAdmin,
           isAgent: user.isAgent,
-          adminRoles: user.adminRoles,
-          agentRoles: user.agentRoles,
+          adminRoles: user.adminRoles as any,
+          agentRoles: user.agentRoles as any,
           adminDirectPermissions: user.adminDirectPermissions,
           agentDirectPermissions: user.agentDirectPermissions,
         };
