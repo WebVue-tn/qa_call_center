@@ -62,9 +62,12 @@ export const authConfig = {
 
         await connectDB();
 
+        // Ensure Role model is registered
+        await Role.init();
+
         const user = await User.findOne({
           email: (credentials.email as string).toLowerCase(),
-        }).populate("adminRoles agentRoles");
+        });
 
         if (!user) {
           return null;
