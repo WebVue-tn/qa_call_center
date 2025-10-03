@@ -21,8 +21,8 @@ declare module "next-auth" {
       isTelephoniste: boolean;
       isAdmin: boolean;
       isAgent: boolean;
-      adminRoles?: Types.ObjectId[];
-      agentRoles?: Types.ObjectId[];
+      adminRoles?: string[];
+      agentRoles?: string[];
       adminDirectPermissions?: string[];
       agentDirectPermissions?: string[];
     } & DefaultSession["user"];
@@ -35,8 +35,8 @@ declare module "next-auth" {
     isTelephoniste: boolean;
     isAdmin: boolean;
     isAgent: boolean;
-    adminRoles?: Types.ObjectId[];
-    agentRoles?: Types.ObjectId[];
+    adminRoles?: string[];
+    agentRoles?: string[];
     adminDirectPermissions?: string[];
     agentDirectPermissions?: string[];
   }
@@ -89,10 +89,10 @@ export const authConfig = {
           isTelephoniste: user.isTelephoniste,
           isAdmin: user.isAdmin,
           isAgent: user.isAgent,
-          adminRoles: user.adminRoles as any,
-          agentRoles: user.agentRoles as any,
-          adminDirectPermissions: user.adminDirectPermissions,
-          agentDirectPermissions: user.agentDirectPermissions,
+          adminRoles: user.adminRoles?.map((id: any) => id.toString()) || [],
+          agentRoles: user.agentRoles?.map((id: any) => id.toString()) || [],
+          adminDirectPermissions: user.adminDirectPermissions || [],
+          agentDirectPermissions: user.agentDirectPermissions || [],
         };
       },
     }),
@@ -119,8 +119,8 @@ export const authConfig = {
         isTelephoniste: token.isTelephoniste as boolean,
         isAdmin: token.isAdmin as boolean,
         isAgent: token.isAgent as boolean,
-        adminRoles: token.adminRoles as Types.ObjectId[],
-        agentRoles: token.agentRoles as Types.ObjectId[],
+        adminRoles: token.adminRoles as string[],
+        agentRoles: token.agentRoles as string[],
         adminDirectPermissions: token.adminDirectPermissions as string[],
         agentDirectPermissions: token.agentDirectPermissions as string[],
       },
