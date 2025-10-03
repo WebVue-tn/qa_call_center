@@ -82,6 +82,7 @@ export const authConfig = {
           return null;
         }
 
+        // Convert all Mongoose types to plain JavaScript for JWT
         return {
           id: (user._id as any).toString(),
           name: user.name,
@@ -89,10 +90,10 @@ export const authConfig = {
           isTelephoniste: user.isTelephoniste,
           isAdmin: user.isAdmin,
           isAgent: user.isAgent,
-          adminRoles: user.adminRoles?.map((id: any) => id.toString()) || [],
-          agentRoles: user.agentRoles?.map((id: any) => id.toString()) || [],
-          adminDirectPermissions: user.adminDirectPermissions || [],
-          agentDirectPermissions: user.agentDirectPermissions || [],
+          adminRoles: user.adminRoles ? [...user.adminRoles].map((id: any) => id.toString()) : [],
+          agentRoles: user.agentRoles ? [...user.agentRoles].map((id: any) => id.toString()) : [],
+          adminDirectPermissions: user.adminDirectPermissions ? [...user.adminDirectPermissions] : [],
+          agentDirectPermissions: user.agentDirectPermissions ? [...user.agentDirectPermissions] : [],
         };
       },
     }),
