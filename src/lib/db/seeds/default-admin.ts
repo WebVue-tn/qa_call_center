@@ -2,6 +2,9 @@
  * Seed script for default admin user
  */
 
+// Load environment variables
+import "dotenv/config";
+
 import User from "../models/User";
 import { connectDB } from "~/lib/db";
 import bcrypt from "bcryptjs";
@@ -46,7 +49,7 @@ export async function seedDefaultAdmin() {
 }
 
 // Run if executed directly
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   seedDefaultAdmin()
     .then(() => {
       console.log("Seed completed!");

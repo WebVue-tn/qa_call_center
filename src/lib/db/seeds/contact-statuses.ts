@@ -2,6 +2,9 @@
  * Seed script for default contact statuses
  */
 
+// Load environment variables
+import "dotenv/config";
+
 import ContactStatus from "../models/ContactStatus";
 import { connectDB } from "~/lib/db";
 
@@ -100,7 +103,7 @@ export async function seedContactStatuses() {
 }
 
 // Run if executed directly
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   seedContactStatuses()
     .then(() => {
       console.log("Seed completed!");

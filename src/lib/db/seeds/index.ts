@@ -2,6 +2,9 @@
  * Main seed script to run all seeds
  */
 
+// Load environment variables
+import "dotenv/config";
+
 import { seedContactStatuses } from "./contact-statuses";
 import { seedDefaultAdmin } from "./default-admin";
 import { connectDB } from "~/lib/db";
@@ -33,7 +36,7 @@ export async function seedAll() {
 }
 
 // Run if executed directly
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   seedAll()
     .then(() => {
       console.log("Seed process completed!");
