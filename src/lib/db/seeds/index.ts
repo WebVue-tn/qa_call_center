@@ -7,6 +7,8 @@ import "dotenv/config";
 
 import { seedContactStatuses } from "./contact-statuses";
 import { seedDefaultAdmin } from "./default-admin";
+import { seedTestUsers } from "./test-users";
+import { seedTestContacts } from "./test-contacts";
 import { connectDB } from "~/lib/db";
 
 export async function seedAll() {
@@ -18,12 +20,20 @@ export async function seedAll() {
     console.log("=".repeat(50));
     console.log("");
 
-    // Seed contact statuses first
+    // Seed contact statuses first (required for contacts)
     await seedContactStatuses();
     console.log("");
 
     // Seed default admin user
     await seedDefaultAdmin();
+    console.log("");
+
+    // Seed test users (telephonistes and agents)
+    await seedTestUsers();
+    console.log("");
+
+    // Seed test contacts (requires statuses and users)
+    await seedTestContacts();
     console.log("");
 
     console.log("=".repeat(50));
